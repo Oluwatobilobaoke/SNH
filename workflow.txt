@@ -1,0 +1,27 @@
+
+
+- Regsiter
+
+We need:
+
+- First name (string)
+- Last Name (string)
+- Designation (string)
+- email -(string)
+- ID (auto generated) - int
+- Deparment (string)
+- Password (string)
+
+
+*** 3 Levels,
+
+++ Medical TEam (hospital staff)
+++ Super admin (MD)
+++ Patients
+
+--- Access Control (ACL)
+
+- Login
+- Logout
+- Reset Password
+- Log Activities / Server - Issues
