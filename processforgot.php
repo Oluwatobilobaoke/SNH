@@ -33,10 +33,13 @@ if ($errorCount > 0) {
 
         if ($currentUser == $email . ".json") {
             // send email and redirect to reset password page.
-            $token = "tcgreh!@343r7e546";  // work on token generation
+            $token = "";  // work on token generation
+
+            $alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "A", "B", "C", "D", "E", "F", "G", "H"];
+
             $subject = "Password reset link";
             $message = "A password reset has been initiated on this account, if you do not initiate this reset,
-            please ignore this message. Otherwise, visit: localhost/myh/reset.php?token=" . $token;
+            please ignore this message. Otherwise, visit: localhost/myh/resetPassword.php?token=" . $token;
             $headers = "From: no-reply@snh.ng" . "\r\n" . "CC:oluwatobilobaoke@snh.ng";
             file_put_contents("db/tokens/" . $email . ".json", json_encode(["token " => $token]));
             $sendPasswordReset = mail($email, $subject, $message, $headers);

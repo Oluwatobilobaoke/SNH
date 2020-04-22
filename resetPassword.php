@@ -1,7 +1,7 @@
 <?php include_once('lib/header.php'); ?>
 <h3>Reset Password</h3>
 <p>Reset password associated with your account : [email] </p>
-<form action="process_Reset_password.php" method="POST">
+<form action="processreset.php" method="POST">
     <p>
         <?php
         if (isset($_SESSION['error']) && !empty($_SESSION['error'])) {
@@ -10,6 +10,8 @@
         }
         ?>
     </p>
+    <input type="hidden" name="token" value="<?php echo $_GET['token'] ?>
+    ">
     <p>
         <label for="Email"></label><br>
         <input readonly value="[email]" type="text" name="email" placeholder="Enter Email" />
