@@ -1,0 +1,11 @@
+{
+    "id": 3,
+    "first_name": "Boss",
+    "last_name": "SuperBABA",
+    "email": "bossSuper@gmail.com",
+    "password": "$2y$10$gz97HBOyJzF1C7YYfNQ6.uCWxKY1JA7DCynv9.4lR45SjBRDjCBLW",
+    "gender": "Female",
+    "designation": "Super Admin",
+    "department": "Finance",
+    "dateRegistered": "22 Apr 2020 09:04:05pm"
+}

@@ -1,26 +1,36 @@
-<?php include_once('lib/header.php');
-
-// Start the session
-if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
+<?php
+include_once('lib/header.php');
+if (!isset($_SESSION['loggedIn'])) {
     // redirect to dashboard
-    if ($_SESSION['role'] == "Medical Team(MT)") {
-        header("location: dashboard.php");
-    }
-    if ($_SESSION['role'] == "Patient") {
-        header("location: patientDashboard.php");
-    }
-    if ($_SESSION['role'] == "Super Admin") {
-        header("location: superAdminDashboard.php");
-    }
+    header("Location: login.php");
 }
+
+$userData = json_decode($_SESSION['userObject']);
 ?>
 
-<p><strong>Welcome, Please register</strong></p>
-<p>All Fields are required</p>
+<h3>SuperAdmin Dashboard</h3>
 
+LoggedIn User ID: <?php echo $_SESSION['loggedIn'] ?> <br>
+Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as Super Admin, and your User ID is <?php echo $_SESSION['loggedIn'] ?>.
 
-<form method="POST" action="processregister.php">
-    <h1>Register</h1>
+<p>Date of Registration : <?php echo  $userData->dateRegistered  ?></p>
+<p>Last Login : <?php
+                if (isset($lastLogIn)) {
+                    echo  $lastLogIn;
+                } else {
+                    echo $userData->dateRegistered;
+                }
+
+                ?></p>
+
+<p>Click on the button to create user</p>
+<p>
+    <a class="" href="#form">Create New User</a>
+</p>
+
+<p>Create A New User</p>
+<form method="POST" action="processcreate.php">
+    <h1>Register New User</h1>
     <p>
         <?php
         if (isset($_SESSION['error']) && !empty($_SESSION['error'])) {

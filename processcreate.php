@@ -120,7 +120,7 @@ if ($errorCount > 0) {
     $_SESSION["depterr"] = $depterr;
 
     // redirect back and display error
-    header("Location: register.php");
+    header("Location: superadmindashboard.php#form");
 } else {
 
     date_default_timezone_set("Africa/Lagos");
@@ -157,14 +157,14 @@ if ($errorCount > 0) {
 
         if ($currentUser == $email . ".json") {
             $_SESSION["error"] = "Registration Failed, User already exits ";
-            header("Location: register.php");
+            header("Location: superadmindashboard.php#form");
             die();
         }
     }
     // Save to database
     file_put_contents("db/users/" . $email . ".json", json_encode($userObject));
     $_SESSION["message"] = "Registration Successful, you can now login " . $first_name;
-    header("Location: login.php");
+    header("Location: superadmindashboard.php#form");
 }
 
 
