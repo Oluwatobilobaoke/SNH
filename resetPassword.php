@@ -1,6 +1,5 @@
 <?php include_once('lib/header.php');
 require_once('functions/alert.php');
-require_once('functions/user.php');
 
 // check if token is set
 if (!is_user_LoggedIn() && is_token_set()) {

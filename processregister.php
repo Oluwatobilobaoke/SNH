@@ -1,5 +1,5 @@
 <?php session_start();
-
+require_once("functions/alert.php");
 // print_r($_POST);
 
 // Collecting the data
@@ -130,11 +130,7 @@ if ($errorCount > 0) {
     // *** Count All the users,
     //save in the database
 
-    $allUsers = scandir("db/users/"); //return @array (2 filled)
 
-    $countAllUsers = count($allUsers);
-
-    $newUserId = ($countAllUsers - 1);
 
     // defining UserObject to be saved 
     $userObject = [
@@ -151,20 +147,18 @@ if ($errorCount > 0) {
 
     // Check if user already exists
     //scan db array ad check if email already exists
-    for ($counter = 0; $counter < $countAllUsers; $counter++) {
+    $userExists = findUser($email);
 
-        $currentUser = $allUsers[$counter];
 
-        if ($currentUser == $email . ".json") {
-            $_SESSION["error"] = "Registration Failed, User already exits ";
-            header("Location: register.php");
-            die();
-        }
+    if ($userExists) {
+        set_alert('error', "Registration Failed, User already exits");
+        redirect_to("register.php");
+        die();
     }
     // Save to database
-    file_put_contents("db/users/" . $email . ".json", json_encode($userObject));
-    $_SESSION["message"] = "Registration Successful, you can now login " . $first_name;
-    header("Location: login.php");
+    saveUser($userObject);
+    set_alert("message", "Registration Successful, you can now login " . $first_name);
+    redirect_to("login.php");
 }
 
 

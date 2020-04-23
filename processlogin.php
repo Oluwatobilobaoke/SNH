@@ -1,6 +1,9 @@
 <?php
 // require_once('./functions/alert.php');
 session_start();
+require_once('functions/alert.php');
+require_once('functions/redirect.php');
+
 
 $errorCount = 0;
 
@@ -16,53 +19,45 @@ if ($errorCount > 0) {
         $session_error .= "s";
     }
     $session_error .= '  in your form submmision';
-    $_SESSION['error'] = $session_error;
-    header("location: login.php");
+    set_alert("error", $session_error);
+    redirect_to("login.php");
 } else {
 
+    $currentUser = findUser($email);
 
-    $allUsers = scandir("db/users/");    //collecting all users in database
-    $countAllUsers = count($allUsers);   // counting all users
+    if ($currentUser) {
+        //check the user password.
+        $userString = file_get_contents("db/users/" . $email . ".json");
+        $userObject = json_decode($userString);
+        $passwordFromDB = $userObject->password;
+        $password_inputed_By_User = password_verify($password, $passwordFromDB);
 
-    // checking user exist
-    for ($counter = 0; $counter < $countAllUsers; $counter++) {
+        if ($passwordFromDB == $password_inputed_By_User) {
+            //last login capture
+            // file_put_contents("db/login/" . $email . ".json", json_encode(['last_login' => $lastlog]));
 
-        $currentUser = $allUsers[$counter];
-
-        if ($currentUser == $email . ".json") {
-            //check the user password.
-            $userString = file_get_contents("db/users/" . $email . ".json");
-            $userObject = json_decode($userString);
-            $passwordFromDB = $userObject->password;
-            $password_inputed_By_User = password_verify($password, $passwordFromDB);
-
-            if ($passwordFromDB == $password_inputed_By_User) {
-                //last login capture
-                // file_put_contents("db/login/" . $email . ".json", json_encode(['last_login' => $lastlog]));
-
-                //redirect to dashboard
-                $_SESSION['email'] =  $userObject->email;
-                $_SESSION['userObject'] = json_encode($userObject);
-                $_SESSION['loggedIn'] = $userObject->id;
-                $_SESSION['role'] = $userObject->designation;
+            //redirect to dashboard
+            $_SESSION['email'] =  $userObject->email;
+            $_SESSION['userObject'] = json_encode($userObject);
+            $_SESSION['loggedIn'] = $userObject->id;
+            $_SESSION['role'] = $userObject->designation;
 
 
-                if ($userObject->designation == "Medical Team (MT)") {
-                    header("Location: dashboard.php");
-                    die();
-                }
-                if ($userObject->designation == 'Patient') {
-                    header("Location: patientDashBoard.php");
-                    die();
-                }
-                if ($userObject->designation == 'Super Admin') {
-                    header("Location: superAdminDashboard.php");
-                    die();
-                }
+            if ($userObject->designation == "Medical Team (MT)") {
+                redirect_to("dashboard.php");
+                die();
+            }
+            if ($userObject->designation == 'Patient') {
+                redirect_to("patientDashBoard.php");
+                die();
+            }
+            if ($userObject->designation == 'Super Admin') {
+                redirect_to("superAdminDashboard.php");
+                die();
             }
         }
     }
-    $_SESSION['error'] = 'Invalid Email or Password';
-    header("Location: login.php");
+    set_alert("error", 'Invalid Email or Password');
+    redirect_to("login.php");
     die();
 }
