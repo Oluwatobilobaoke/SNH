@@ -21,8 +21,7 @@ if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
 ?>
 <h1>Log In</h1>
 <p>
-    <?php error();
-    message();
+    <?php print_alert();
     ?>
 </p>
 <form method="POST" action="processlogin.php">

@@ -13,6 +13,10 @@ $userData = json_decode($_SESSION['userObject']);
 LoggedIn User ID: <?php echo $_SESSION['loggedIn'] ?> <br>
 Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as (<?php echo $_SESSION['role'] ?>), and your User ID is <?php echo $_SESSION['loggedIn'] ?>.
 
+<br>
+<br>
+<a class="" href="paybill.php">Pay Bill</a> | |
+<a class="" href="bookappointment.php">Book Appointment</a>
 <p>Date of Registration : <?php echo  $userData->dateRegistered  ?></p>
 <p>Last Login : <?php
                 if (isset($lastLogIn)) {

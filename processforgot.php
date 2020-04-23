@@ -17,7 +17,8 @@ if ($errorCount > 0) {
         $session_error .= "s";
     }
     $session_error .= '  in your form submmision';
-    $_SESSION['error'] = $session_error;
+    // $_SESSION['error'] = $session_error;
+    set_alert('error', $session_error);
     header("location: forgot.php");
 } else {
     // Count all users

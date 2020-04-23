@@ -1,21 +1,18 @@
 <?php
-
-function error()
+function print_alert()
 {
+    $types = ['message', 'info', 'error'];
+    $colors = ['green', 'grey', 'red'];
+    for ($i = 0; $i < count($types); $i++) {
+        if (isset($_SESSION[$types[$i]]) && $_SESSION[$types[$i]] != '') {
 
-    if (isset($_SESSION['error']) && !empty($_SESSION['error'])) {
-        echo "<span style'color: red'>" . $_SESSION["error"] . "</span>";
-        session_destroy();
-    }
-};
-
-
-function message()
-{
-
-    if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-        echo "<span style'color: green'>" . $_SESSION["message"] . "</span>";
-        session_destroy();
+            echo "<span style='color:" . $colors[$i] . "'>" . $_SESSION[$types[$i]] . "</span>";
+            if (!isset($_SESSION['LoggedIn'])) {
+                session_destroy();
+            } else {
+                unset($_SESSION[$types[$i]]);
+            }
+        }
     }
 }
 
@@ -27,6 +24,9 @@ function set_alert($type = "message", $content = "")
             break;
         case "error":
             $_SESSION['error'] = $content;
+            break;
+        case "info":
+            $_SESSION['info'] = $content;
             break;
         default:
             $_SESSION['message'] = $content;

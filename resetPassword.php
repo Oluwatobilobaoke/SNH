@@ -16,8 +16,7 @@ if (!is_user_LoggedIn() && is_token_set()) {
 <p>Reset password associated with your account</p>
 <form action="processreset.php" method="POST">
     <p>
-        <?php error();
-        message();
+        print_alert();
         ?>
     </p>
     <?php if (!is_user_LoggedIn()) { ?>

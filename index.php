@@ -1,7 +1,8 @@
-<?php include_once('lib/header.php');  ?>
+<?php include_once('lib/header.php');
+require_once('functions/alert.php')
+?>
 <p>
-    <?php error();
-    message();
+    <?php print_alert();
     ?>
 </p>
 Welcome to SNG: Hospital for the ignorant <br />

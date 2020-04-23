@@ -22,3 +22,8 @@ function is_token_set_in_get()
 {
     isset($_SESSION['token']);
 }
+
+function findUser()
+{
+    // check database if user exists
+}

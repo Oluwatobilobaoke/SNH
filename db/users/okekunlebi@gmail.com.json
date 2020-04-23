@@ -1,1 +1,11 @@
-{"id":2,"first_name":"Oluwatobiloba","last_name":"Okekunle","email":"okekunlebi@gmail.com","password":"$2y$10$4FHftTIUavDZaE8.noLkreb7GA8Ty\/swR8EWFoJDQRBltR3OVTixm","gender":"Female","designation":"Medical Team (MT)","department":"IT","dateRegistered":"22 Apr 2020 09:01:04pm"}
+{
+    "id": 2,
+    "first_name": "Oluwatobiloba",
+    "last_name": "Okekunle",
+    "email": "okekunlebi@gmail.com",
+    "password": "$2y$10$4FHftTIUavDZaE8.noLkreb7GA8Ty\/swR8EWFoJDQRBltR3OVTixm",
+    "gender": "Female",
+    "designation": "Patient",
+    "department": "IT",
+    "dateRegistered": "22 Apr 2020 09:01:04pm"
+}
