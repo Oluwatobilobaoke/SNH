@@ -1,4 +1,5 @@
 <?php session_start();
+require_once('functions/alert.php');
 
 // print_r($_POST);
 
@@ -35,13 +36,21 @@ if ($errorCount > 0) {
             // send email and redirect to reset password page.
             $token = "";  // work on token generation
 
-            $alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "A", "B", "C", "D", "E", "F", "G", "H"];
+            $alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+
+            for ($i = 0; $i < 30; $i++) {
+                //get random numbers
+                //get elements in alphabets at the index of random number
+                //add that to the token string
+                $tokenTobeGotten = mt_rand(0, count($alpha) - 1);
+                $token .= $alpha[$tokenTobeGotten];
+            }
 
             $subject = "Password reset link";
             $message = "A password reset has been initiated on this account, if you do not initiate this reset,
             please ignore this message. Otherwise, visit: localhost/myh/resetPassword.php?token=" . $token;
             $headers = "From: no-reply@snh.ng" . "\r\n" . "CC:oluwatobilobaoke@snh.ng";
-            file_put_contents("db/tokens/" . $email . ".json", json_encode(["token " => $token]));
+            file_put_contents("db/tokens/" . $email . ".json", json_encode(["token" => $token]));
             $sendPasswordReset = mail($email, $subject, $message, $headers);
 
             if ($sendPasswordReset) {

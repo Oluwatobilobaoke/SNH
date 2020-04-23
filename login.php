@@ -1,4 +1,9 @@
 <?php include_once('lib/header.php');
+require_once('functions/alert.php');
+require_once('functions/user.php');
+
+
+
 // Start the session
 if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
     // redirect to dashboard
@@ -16,22 +21,12 @@ if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
 ?>
 <h1>Log In</h1>
 <p>
-    <?php
-    if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-        echo "<span style'color: green'>" . $_SESSION["message"] . "</span>";
-        session_destroy();
-    }
+    <?php error();
+    message();
     ?>
 </p>
 <form method="POST" action="processlogin.php">
-    <p>
-        <?php
-        if (isset($_SESSION['error']) && !empty($_SESSION['error'])) {
-            echo "<span style'color: red'>" . $_SESSION["error"] . "</span>";
-            session_destroy();
-        }
-        ?>
-    </p>
+
 
     <p>
         <label>Email:</label><br>

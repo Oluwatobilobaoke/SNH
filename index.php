@@ -1,10 +1,7 @@
 <?php include_once('lib/header.php');  ?>
 <p>
-    <?php
-    if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-        echo "<p class='info'>" . $_SESSION['message'] . "</span>";
-        session_destroy();
-    }
+    <?php error();
+    message();
     ?>
 </p>
 Welcome to SNG: Hospital for the ignorant <br />
