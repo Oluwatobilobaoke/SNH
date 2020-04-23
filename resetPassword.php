@@ -1,10 +1,11 @@
 <?php include_once('lib/header.php');
 require_once('functions/alert.php');
+require_once("functions/redirect.php");
 
 // check if token is set
-if (!is_user_LoggedIn() && is_token_set()) {
-    $_SESSION["error"] = "You are not authorized to view that page ";
-    header("Location: login.php");
+if (!isset($_GET['token']) && !isset($_SESSION['token']) && !isset($_SESSION['LoggedIn'])) {
+    set_alert("error", "You are not uthorized to be here Get Out");
+    redirect_to("login.php");
 }
 
 // check token matches set email in iur database
@@ -18,21 +19,31 @@ if (!is_user_LoggedIn() && is_token_set()) {
         print_alert();
         ?>
     </p>
-    <?php if (!is_user_LoggedIn()) { ?>
+    <?php if (!isset($_SESSION['LoggedIn'])) { ?>
+        <input type="hidden" name="token" value="<?php
+                                                    if (isset($_GET['token'])) {
+                                                        echo ($_GET['token']);
+                                                    } else {
+                                                        if (isset($_SESSION['token'])) {
+                                                            echo ($_SESSION['token']);
+                                                        }
+                                                    }
 
-        <input <?php if (is_token_set_in_session()) {
-                    echo "value='" . $_SESSION['token'] . "'";
-                } else {
-                    echo "value='" . $_GET['token'] . "'";
-                }
-
-                ?> type="hidden" name="token" />
+                                                    ?>">
     <?php } ?>
 
 
     <p>
-        <label for="Email"></label><br>
-        <input type="text" name="email" placeholder="Enter Email" />
+        <label>Email:</label><br>
+        <input <?php
+                if (isset($_SESSION['email'])) {
+                    echo "value=" . $_SESSION['email'];
+                }
+                ?> <?php
+                        if (isset($_SESSION['LoggedIn'])) {
+                            echo 'readonly';
+                        }
+                        ?> type="email" name="email" placeholder="Please enter email">
     </p>
     <label>Enter New Password</label><br />
     <input type="password" name="password" placeholder="Password" />

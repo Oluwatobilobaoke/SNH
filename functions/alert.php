@@ -94,6 +94,21 @@ function updateUser($userObject)
 {
 }
 
+function generateToken()
+{
+    $token = "";  // work on token generation
+
+    $alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+
+    for ($i = 0; $i < 30; $i++) {
+        //get random numbers
+        //get elements in alphabets at the index of random number
+        //add that to the token string
+        $tokenTobeGotten = mt_rand(0, count($alpha) - 1);
+        $token .= $alpha[$tokenTobeGotten];
+    }
+    return $token;
+}
 
 function sendMail(
     $subject = "",
@@ -118,22 +133,6 @@ function sendMail(
 }
 
 
-function generateToken()
-{
-    $token = "";  // work on token generation
-
-    $alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
-
-    for ($i = 0; $i < 30; $i++) {
-        //get random numbers
-        //get elements in alphabets at the index of random number
-        //add that to the token string
-        $tokenTobeGotten = mt_rand(0, count($alpha) - 1);
-        $token .= $alpha[$tokenTobeGotten];
-    }
-    return $token;
-}
-
 function findToken($email = "")
 {
     $allUserTokens = scandir("db/tokens/"); //return @array (2 filled)
@@ -155,8 +154,4 @@ function findToken($email = "")
         }
     }
     return false;
-}
-
-function updateToken()
-{
 }

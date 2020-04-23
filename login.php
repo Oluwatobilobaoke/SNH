@@ -1,5 +1,6 @@
 <?php include_once('lib/header.php');
 require_once('functions/alert.php');
+require_once("functions/redirect.php");
 
 
 
@@ -8,13 +9,13 @@ require_once('functions/alert.php');
 if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
     // redirect to dashboard
     if ($_SESSION['role'] == "Medical Team(MT)") {
-        header("location: dashboard.php");
+        redirect_to("dashboard.php");
     }
     if ($_SESSION['role'] == "Patient") {
-        header("location: patientDashboard.php");
+        redirect_to("patientDashboard.php");
     }
     if ($_SESSION['role'] == "Super Admin") {
-        header("location: adminDashboard.php");
+        redirect_to("adminDashboard.php");
     }
 }
 
