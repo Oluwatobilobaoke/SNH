@@ -22,7 +22,7 @@
 
                 <a class="p-2 text-dark" href="login.php">Login</a>
                 <a class="btn btn-primary" href="register.php">Register</a>
-                <!-- <a class="p-2 text-dark" href="forgot.php">Forgot Password</a> -->
+                <a class="p-2 text-dark" href="forgot.php">Forgot Password</a>
             <?php } else { ?>
 
                 <!-- <a class="p-2 text-dark" href="dashboard.php">Dashboard</a> -->
