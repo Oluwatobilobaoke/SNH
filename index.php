@@ -10,8 +10,15 @@ require_once('functions/alert.php')
     <p class="lead">This is a specialist hospital to cure ignorance!</p>
     <p class="lead">Come as you are, it is completely free!</p>
     <p>
-        <a class="btn btn-bg btn-outline-secondary" href="login.php">Login</a>
-        <a class="btn btn-bg btn-outline-primary" href="register.php">Register</a>
+        <a class="btn btn-bg btn-outline-secondary" href="index.php">Home</a>
+        <?php if (!isset($_SESSION['loggedIn'])) { ?>
+
+            <a class="btn btn-bg btn-outline-secondary" href="login.php">Login</a>
+            <a class="btn btn-bg btn-outline-primary" href="register.php">Register</a>
+        <?php } else { ?>
+
+
+        <?php } ?>
     </p>
 </div>
 
