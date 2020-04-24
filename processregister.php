@@ -1,5 +1,6 @@
 <?php session_start();
 require_once("functions/alert.php");
+require_once('functions/user.php');
 // print_r($_POST);
 
 // Collecting the data
@@ -131,7 +132,7 @@ if ($errorCount > 0) {
     //save in the database
 
 
-
+    $newUserId = ($countAllUsers - 1);
     // defining UserObject to be saved 
     $userObject = [
         'id' => $newUserId,

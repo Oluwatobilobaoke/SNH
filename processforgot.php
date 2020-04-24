@@ -1,6 +1,9 @@
 <?php session_start();
+
 require_once('functions/alert.php');
 require_once('functions/redirect.php');
+require_once('functions/token.php');
+require_once('functions/user.php');
 
 // print_r($_POST);
 
@@ -30,6 +33,7 @@ if ($errorCount > 0) {
     $allUsers = scandir("db/users/"); //return @array (2 filled)
 
     $countAllUsers = count($allUsers);
+
     for ($counter = 0; $counter < $countAllUsers; $counter++) {
 
         $currentUser = $allUsers[$counter];
@@ -39,13 +43,23 @@ if ($errorCount > 0) {
 
             $token = generateToken();
 
-            $subject = "Password reset link";
+            $subject = "Password Reset link";
             $message = "A password reset has been initiated on this account, if you do not initiate this reset,
             please ignore this message. Otherwise, visit: localhost/myh/resetPassword.php?token=" . $token;
-            $headers = "From: no-reply@snh.ng" . "\r\n" . "CC:oluwatobilobaoke@snh.ng";
+
             file_put_contents("db/tokens/" . $email . ".json", json_encode(["token" => $token]));
 
-            sendMail($subject, $email, $message);
+            $sendPasswordReset = mail($email, $subject, $message, $headers);
+
+            if ($sendPasswordReset) {
+                // display success message 
+                set_alert('message', "Pasword reset has been sent to your email: " . $email);
+                redirect_to("login.php");
+            } else {
+                // display error message
+                set_alert('error', "Something went wrong we coud not sent password reset link to email: " . $email);
+                redirect_to("forgot.php");
+            }
 
             die();
         }

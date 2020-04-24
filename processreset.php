@@ -1,6 +1,9 @@
 <?php session_start();
+// require_once('functions/user.php');
 require_once('functions/alert.php');
 require_once('functions/redirect.php');
+// require_once('functions/user.php');
+
 
 // print_r($_POST);
 
@@ -8,8 +11,9 @@ require_once('functions/redirect.php');
 
 $errorCount = 0;
 
-if (!is_user_LoggedIn()) {
-    $token = $_POST['token'] != "" ? $_POST['token'] : $errorCount++;
+if (!$_SESSION['loggedIn']) {
+
+    $token = $_POST['token'] != "" ? $_POST['token'] :  $errorCount++;
     $_SESSION['token'] = $token;
 }
 
@@ -38,47 +42,69 @@ if ($errorCount > 0) {
     // check email exits in tokens folder on the database
     // check if token generated match with the session token
     //save in the database
+    // if ($current_Token_File == $email . ".json") {
+    //     // check if token generated match with the session token
+    //     $token_Content_Derived_from_Db = file_get_contents("db/tokens/" . $current_Token_File);
+    //     $token_Object = json_decode($token_Content_Derived_from_Db);
+    //     $token_from_db = $token_Object->token;
 
-    $checkToken = is_user_LoggedIn() ? true : findToken($email);
+    $allUserTokens = scandir("db/tokens/"); //return @array (2 filled)
+    $countAllUserTokens = count($allUserTokens);
 
-    if ($checkToken) {
+    for ($counter = 0; $counter < $countAllUserTokens; $counter++) {
 
-        $userExists = findUser($email);
+        $current_Token_File = $allUserTokens[$counter];
 
+        if ($current_Token_File == $email . ".json") {
+            //now check if the token in the currentTokenFile is the same as $token
+            $token_Content_Derived_from_Db = file_get_contents("db/tokens/" . $current_Token_File);
 
-        if ($userExists) {
-            //check the user password.
-            $userObject = findUser($email);
+            $token_Object = json_decode($token_Content_Derived_from_Db);
+            $token_from_db = $token_Object->token;
 
-            $userObject->password = password_hash($password, PASSWORD_DEFAULT);
+            //TODO: Make this better, fix the temporary fix
 
-            unlink("db/users/" . $currentUser);
-            unlink("db/tokens/" . $currentUser);
+            if ($_SESSION['loggedIn']) {
+                $checkToken = true;
+            } else {
+                $checkToken = $token_from_db == $token;
+            }
 
-            saveUser($userObject);
+            if ($checkToken) {
 
+                $allUsers = scandir("db/users/");
+                $countAllUsers = count($allUsers);
 
-            set_alert('message', "Password Reset Successful, you can now login " . $first_name);
-            /**
-             * Inform User of password reset starts
-             */
-            $subject = "Password reset successful";
-            $message = "your account password has just beeen updated, if you didnt initiate password change visit snh.org and reset the passwords immediately.";
-            sendMail($subject, $message, $email);
-            /**
-             * Inform User of password reset ends
-             */
-            redirect_to("login.php");
+                for ($counter = 0; $counter < $countAllUsers; $counter++) {
 
+                    $currentUser = $allUsers[$counter];
 
-            // echo "User can update password";
-            return;
+                    if ($currentUser == $email . ".json") {
+                        //check the user password.
+                        $userString = file_get_contents("db/users/" . $currentUser);
+                        $userObject = json_decode($userString);
+
+                        $userObject->password = password_hash($password, PASSWORD_DEFAULT);
+
+                        unlink("db/users/" . $currentUser); //file delete, user data delete
+                        unlink("db/token/" . $currentUser); //file delete, token data delete
+                        //save_user($userObject);
+                        file_put_contents("db/users/" . $email . ".json", json_encode($userObject));
+                        set_alert('message', 'Password Reset Successful, you can now login');
+
+                        $subject = "Password Reset Successful";
+                        $message = "Your account on snh has just been updated, your password has changed. if you did not initiate the password change, please visit snh.org and reset your password immediatly";
+                        $headers = "From: no-reply@snh.org" . "\r\n" .
+                            "CC: OLuwatobioba@snh.org";
+
+                        $try = mail($email, $subject, $message, $headers);
+                        redirect_to("login.php");
+                        die();
+                    }
+                }
+            }
         }
     }
-
-
-
-
     set_alert('error', "Password Reset Failed Mahn, token/email invalid or expired " . $first_name);
     redirect_to("login.php");
 }

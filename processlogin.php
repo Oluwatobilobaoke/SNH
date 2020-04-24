@@ -1,8 +1,9 @@
 <?php
-// require_once('./functions/alert.php');
 session_start();
 require_once('functions/alert.php');
 require_once('functions/redirect.php');
+require_once('functions/token.php');
+require_once('functions/user.php');
 
 
 $errorCount = 0;
@@ -24,12 +25,16 @@ if ($errorCount > 0) {
 } else {
 
     $currentUser = findUser($email);
+    // print_r($currentUser);
+    // die();
 
     if ($currentUser) {
         //check the user password.
-        $userString = file_get_contents("db/users/" . $email . ".json");
+        $userString = file_get_contents("db/users/" . $currentUser->email . ".json");
         $userObject = json_decode($userString);
+
         $passwordFromDB = $userObject->password;
+
         $password_inputed_By_User = password_verify($password, $passwordFromDB);
 
         if ($passwordFromDB == $password_inputed_By_User) {
