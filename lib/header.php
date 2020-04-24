@@ -26,7 +26,7 @@
             <?php } else { ?>
 
                 <a class="p-2 text-dark" href="dashboard.php">Dashboard</a>
-                <a class="p-2 text-dark" href="reset.php">Reset Password</a>
+                <a class="p-2 text-dark" href="resetPassword.php">Reset Password</a>
                 <a class="p-2 text-dark" href="logout.php">Logout</a>
             <?php } ?>
 
