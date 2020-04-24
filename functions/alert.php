@@ -29,3 +29,11 @@ function set_alert($type = "message", $content = "")
             $_SESSION['message'] = $content;
     }
 }
+
+function check_input($input)
+{
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
+}
