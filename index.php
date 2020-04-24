@@ -2,8 +2,8 @@
 require_once('functions/alert.php')
 ?>
 <p>
-    <?php print_alert();
-    ?>
+    <!-- <?php print_alert();
+            ?> -->
 </p>
 Welcome to SNG: Hospital for the ignorant <br />
 <hr />

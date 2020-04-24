@@ -131,7 +131,11 @@ if ($errorCount > 0) {
     // *** Count All the users,
     //save in the database
 
+    // $userExists = findUser($email);
+    $allUsers = scandir("db/users/"); //return @array (2 filled)
 
+
+    $countAllUsers = count($allUsers);
     $newUserId = ($countAllUsers - 1);
     // defining UserObject to be saved 
     $userObject = [

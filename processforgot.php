@@ -48,13 +48,17 @@ if ($errorCount > 0) {
             please ignore this message. Otherwise, visit: localhost/myh/resetPassword.php?token=" . $token;
 
             file_put_contents("db/tokens/" . $email . ".json", json_encode(["token" => $token]));
+            $headers = "From: no-reply@snh.ng" . "\r\n" . "CC:tobiiiiiiiiiii@snh.ng";
 
             $sendPasswordReset = mail($email, $subject, $message, $headers);
+            // print_r($sendPasswordReset);
+            // die();
 
             if ($sendPasswordReset) {
                 // display success message 
                 set_alert('message', "Pasword reset has been sent to your email: " . $email);
                 redirect_to("login.php");
+                // die();
             } else {
                 // display error message
                 set_alert('error', "Something went wrong we coud not sent password reset link to email: " . $email);

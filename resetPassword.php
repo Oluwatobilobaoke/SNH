@@ -1,10 +1,10 @@
 <?php include_once('lib/header.php');
 require_once('functions/alert.php');
 require_once("functions/redirect.php");
-require_once('functions/user.php');
+// require_once('functions/user.php');
 
 // check if token is set
-if (!is_user_loggedIn() && !is_token_set()) {
+if (!isset($_GET['token']) && !isset($_SESSION['token']) && !isset($_SESSION['loggedIn'])) {
     print_alert("error", "You are not authorized to be here Get Out");
     redirect_to("login.php");
 }
@@ -14,21 +14,26 @@ if (!is_user_loggedIn() && !is_token_set()) {
 
 ?>
 <h3>Reset Password</h3>
+
+<p>
+    <?php
+    print_alert();
+    ?>
+</p>
 <p>Reset password associated with your account</p>
 <form action="processreset.php" method="POST">
-    <p>
-        <?php
-        print_alert();
-        ?>
-    </p>
-    <?php if (!is_user_loggedIn()) { ?>
-        <input <?php
-                if (is_token_set_in_session()) {
-                    echo "value='" . $_SESSION['token'] . "'";
-                } else {
-                    echo "value='" . $_GET['token'] . "'";
-                }
-                ?> type="hidden" name="token" />
+
+    <?php if (!isset($_SESSION['loggedIn'])) { ?>
+        <input type="hidden" name="token" value="<?php
+                                                    if (isset($_GET['token'])) {
+                                                        echo ($_GET['token']);
+                                                    } else {
+                                                        if (isset($_SESSION['token'])) {
+                                                            echo ($_SESSION['token']);
+                                                        }
+                                                    }
+
+                                                    ?>">
     <?php } ?>
 
 
