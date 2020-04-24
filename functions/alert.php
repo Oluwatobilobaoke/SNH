@@ -4,7 +4,7 @@ require_once('redirect.php');
 function print_alert()
 {
     $types = ['message', 'info', 'error'];
-    $colors = ['green', 'grey', 'red'];
+    $colors = ['success', 'info', 'danger'];
     for ($i = 0; $i < count($types); $i++) {
         if (isset($_SESSION[$types[$i]]) && $_SESSION[$types[$i]] != '') {
 

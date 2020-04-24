@@ -20,33 +20,44 @@ if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
 }
 
 ?>
-<h1>Log In</h1>
-<p>
-    <?php print_alert();
-    ?>
-</p>
-<form method="POST" action="processlogin.php">
+
+<div class="container">
+    <div class="row col-6">
+        <h1>Log In</h1>
+    </div>
+    <div class="row col-6">
+        <p>
+            <?php print_alert();
+            ?>
+        </p>
+        <form method="POST" action="processlogin.php">
 
 
-    <p>
-        <label>Email:</label><br>
-        <input value="<?php
-                        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
-                            echo $_SESSION['email'];
-                        }
+            <p>
+                <label>Email:</label><br>
+                <input value="<?php
+                                if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
+                                    echo $_SESSION['email'];
+                                }
 
-                        ?>" type="email" name="email" placeholder="Please enter email">
-    </p>
-    <p>
-        <label>Password</label><br />
-        <input type="password" name="password" placeholder="Password" />
-    </p>
+                                ?>" type="email" name="email" placeholder="Please enter email">
+            </p>
+            <p>
+                <label>Password</label><br />
+                <input type="password" name="password" placeholder="Password" />
+            </p>
 
 
-    <p>
-        <button type="submit">Login</button>
-    </p>
+            <p>
+                <button type="submit">Login</button>
+            </p>
 
-</form>
+        </form>
+    </div>
+
+</div>
+
+
+
 
 <?php include_once('lib/footer.php'); ?>
