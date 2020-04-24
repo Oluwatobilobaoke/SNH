@@ -2,6 +2,7 @@
 
 include_once('lib/header.php');
 require_once('functions/alert.php');
+require_once('functions/redirect.php');
 ?>
 
 <section>
@@ -18,6 +19,17 @@ require_once('functions/alert.php');
     ?>
 
     <form action="processbookingappointment.php" method="post">
+
+        <p>
+            <label>Name</label><br>
+            <textarea placeholder="Please enter name" name="name" cols="22" rows="2"><?php
+                                                                                        if (isset($_SESSION['name']) && $_SESSION['name'] != '') {
+                                                                                            echo $_SESSION['name'];
+                                                                                        }
+                                                                                        ?></textarea>
+
+        </p>
+
         <p>
             <label>Nature of Your Appointment</label><br>
 

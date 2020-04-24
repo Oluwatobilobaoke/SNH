@@ -8,6 +8,7 @@ require_once('functions/user.php');
 $userData = json_decode($_SESSION['userObject']);
 $errorCount = 0;
 
+$_POST['name'] !== '' ? $name = check_input($_POST['name'])  : $errorCount++;
 $_POST['nature'] !== '' ? $nature = check_input($_POST['nature'])  : $errorCount++;
 $_POST['time'] !== '' ? $time = check_input($_POST['time'])  : $errorCount++;
 $_POST['date'] !== '' ? $date = $_POST['date']  : $errorCount++;
@@ -16,7 +17,7 @@ $_POST['complaint'] !== '' ? $complaint = check_input($_POST['complaint'])  : $e
 $_POST['department'] !== '' ? $department = check_input($_POST['department'])  : $errorCount++;
 
 
-
+$_SESSION['name'] = $name;
 $_SESSION['nature'] = $nature;
 $_SESSION['time'] = $time;
 $_SESSION['date'] = $date;
@@ -56,24 +57,24 @@ if (strlen($complaint) < 5) {
 
     $appointMent_Object = [
         'id' => $Id,
+        "patientName" => $name,
         'nature' => $nature,
         'time' => $formatted_Time,
         'date' => $date,
         'department' => $department,
-        'complaint' => $complaint,
-        "patientName" => $userData->firstname . " " . $userData->lastname
+        'complaint' => $complaint
     ];
-    // print_r($apointObject);
-    // die();
 
 
     file_put_contents("db/appointments/" . $Id . ".json", json_encode($appointMent_Object));
 
+    unset($_SESSION['name']);
     unset($_SESSION['nature']);
     unset($_SESSION['time']);
     unset($_SESSION['date']);
     unset($_SESSION['complaint']);
     unset($_SESSION['department']);
+
     set_alert('message', "You have successfully submitted an apointment to the " . $department . " department");
 
     redirect_to("patientDashboard.php");
