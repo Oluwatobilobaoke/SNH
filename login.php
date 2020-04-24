@@ -49,7 +49,7 @@ if (isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])) {
 
 
             <p>
-                <button type="submit">Login</button>
+                <button class="btn btn-secondary btn-login" type="submit">Login</button>
             </p>
 
         </form>

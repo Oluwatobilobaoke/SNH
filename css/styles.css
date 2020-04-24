@@ -124,6 +124,12 @@ input[type=time] {
     -webkit-appearance: listbox
 }
 
+
+.btn-login {
+  height: 40px;
+  width: 177px;
+}
+
 .btn-secondary {
   color: #fff;
   background-color: #858796;
