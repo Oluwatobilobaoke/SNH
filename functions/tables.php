@@ -40,12 +40,12 @@ function getAllUsers()
     $num = count($allusers);
     for ($i = 2; $i < $num; $i++) {
         $user_Derived_from_Db = json_decode(file_get_contents('db/users/' . $allusers[$i]));
-        if ($user_Derived_from_Db->designation == "Medical Team(MT)") {
+        if ($user_Derived_from_Db->designation == "Medical Team (MT)") {
             $staffRowNum++;
             $staffRows .= "
              <tr>
                 <th scope='row'>$staffRowNum</th>
-                <td>$user_Derived_from_Db->firstname </td>
+                <td>$user_Derived_from_Db->first_name  $user_Derived_from_Db->last_name</td>
                  <td>$user_Derived_from_Db->gender</td>
                 <td>$user_Derived_from_Db->designation</td>
                 <td>$user_Derived_from_Db->department</td>
@@ -57,7 +57,7 @@ function getAllUsers()
             $patientRows .= "
              <tr>
                 <th scope='row'>$numofPatientRows</th>
-                <td>$user_Derived_from_Db->firstname</td>
+                <td>$user_Derived_from_Db->first_name  $user_Derived_from_Db->last_name</td>
                   <td>$user_Derived_from_Db->gender</td>
                 <td>$user_Derived_from_Db->designation</td>
                 <td>$user_Derived_from_Db->department</td>
