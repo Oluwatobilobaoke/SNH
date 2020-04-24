@@ -16,7 +16,8 @@ $userData = json_decode($_SESSION['userObject']);
 <section>
     <div id="table">
         <!-- <h1>Appointment Table for <?php echo $userData->department ?> Department</h1> -->
-        <a class="btn btn-outline-danger" href="dashboard.php" style="margin: 20px">; Back</a>
+        <a class="btn btn-outline-danger" href="dashboard.php" style="margin: 20px">Back</a>
+
         <?php
         $rows = getAppointments($userData->department);
         if ($rows) {

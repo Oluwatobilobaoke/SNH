@@ -8,24 +8,36 @@ if (!isset($_SESSION['loggedIn'])) {
 $userData = json_decode($_SESSION['userObject']);
 ?>
 
-<h3>Patient Dashboard</h3>
+<div class="container">
+    <div id="headings">
+        <h3>Patient Dashboard</h3>
+        LoggedIn User ID: <?php echo $_SESSION['loggedIn'] ?> <br>
+        Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as (<?php echo $_SESSION['role'] ?>), and your User ID is <?php echo $_SESSION['loggedIn'] ?>.
+    </div>
 
-LoggedIn User ID: <?php echo $_SESSION['loggedIn'] ?> <br>
-Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as (<?php echo $_SESSION['role'] ?>), and your User ID is <?php echo $_SESSION['loggedIn'] ?>.
 
-<br>
-<br>
-<a class="" href="paybill.php">Pay Bill</a> | |
-<a class="" href="bookappointment.php">Book Appointment</a>
-<p>Date of Registration : <?php echo  $userData->dateRegistered  ?></p>
-<p>Last Login : <?php
-                if (isset($lastLogIn)) {
-                    echo  $lastLogIn;
-                } else {
-                    echo $userData->dateRegistered;
-                }
 
-                ?></p>
-<p>Department : <?php echo $userData->department  ?></p>
+
+    <br>
+    <br>
+    <a class="btn btn-bg btn-info" href="paybill.php">Pay Bill</a> | | |
+    <a class="btn btn-bg btn-info" href="bookappointment.php">Book Appointment</a>
+
+
+    <div class="details">
+        <p>Date of Registration : <?php echo  $userData->dateRegistered  ?></p>
+        <p>Last Login : <?php
+                        if (isset($lastLogIn)) {
+                            echo  $lastLogIn;
+                        } else {
+                            echo $userData->dateRegistered;
+                        }
+
+                        ?></p>
+        <p>Department : <?php echo $userData->department  ?></p>
+    </div>
+
+</div>
+
 
 <?php include_once('lib/footer.php'); ?>

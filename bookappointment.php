@@ -5,12 +5,14 @@ require_once('functions/alert.php');
 require_once('functions/redirect.php');
 ?>
 
-<section>
-    <a href="patientDashBoard.php"> Back</a>
 
+<a class="btn btn-md btn-secondary" href="patientDashBoard.php" style="margin: 30px"> Back</a>
+<div id="headings">
     <h3>Appointment Form</h3>
     <p>Kindly Fill all fields, they are required</p>
-    <br>
+</div>
+<div class="bod">
+    <!-- <div class="containerform"> -->
     <?php
 
     print_alert();
@@ -115,9 +117,11 @@ require_once('functions/redirect.php');
                                                                                                 ?></textarea>
 
         </p>
-        <button type="submit">Book Appointment</button>
+        <button class="btn btn-md btn-dark" type="submit">Book Appointment</button>
     </form>
-</section>
+    <!-- </div> -->
+</div>
+
 
 
 
