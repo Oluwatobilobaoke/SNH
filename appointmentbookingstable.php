@@ -1,5 +1,5 @@
 <?php
-// session_start();
+
 include_once('lib/header.php');
 require_once('functions/alert.php');
 require_once('functions/tables.php');

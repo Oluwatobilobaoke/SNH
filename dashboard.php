@@ -11,6 +11,8 @@ $userData = json_decode($_SESSION['userObject']);
 
 LoggedIn User ID: <?php echo $_SESSION['loggedIn'] ?> <br>
 Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as (<?php echo $_SESSION['role'] ?>), and your User ID is <?php echo $_SESSION['loggedIn'] ?>
+
+
 <br>
 <br>
 
@@ -29,5 +31,6 @@ Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as (<?php echo $_S
                 }
 
                 ?></p>
+<p>Department : <?php echo $userData->department  ?></p>
 
 <?php include_once('lib/footer.php'); ?>

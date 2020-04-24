@@ -6,12 +6,27 @@ if (!isset($_SESSION['loggedIn'])) {
 }
 
 $userData = json_decode($_SESSION['userObject']);
+
 ?>
 
 <h3>SuperAdmin Dashboard</h3>
 
 LoggedIn User ID: <?php echo $_SESSION['loggedIn'] ?> <br>
 Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as Super Admin, and your User ID is <?php echo $_SESSION['loggedIn'] ?>.
+
+<br>
+<br>
+
+<ul>
+
+    <li><a href="alltables.php?table=staff">View the Medical Team</a></li>
+    <li><a href="alltables.php?table=patient">View All the Patients</a></li>
+    <li><a href="#form">Create User</a></li>
+</ul>
+<br>
+
+<br>
+<hr>
 
 <p>Date of Registration : <?php echo  $userData->dateRegistered  ?></p>
 <p>Last Login : <?php
@@ -22,15 +37,16 @@ Welcome, <?php echo $_SESSION['email'] ?>!, You are Logged in as Super Admin, an
                 }
 
                 ?></p>
+<p>Department : <?php echo $userData->department  ?></p>
 
 <p>Click on the button to create user</p>
 <p>
     <a class="" href="#form">Create New User</a>
 </p>
 
-<p>Create A New User</p>
+
 <form method="POST" action="processcreate.php">
-    <h1>Register New User</h1>
+    <h4>Register New User</h4>
     <p>
         <?php
         if (isset($_SESSION['error']) && !empty($_SESSION['error'])) {

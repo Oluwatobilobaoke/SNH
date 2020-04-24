@@ -29,3 +29,42 @@ function getAppointments($dept)
     }
     return $rows;
 }
+
+function getAllUsers()
+{
+    $staffRows = '';
+    $staffRowNum = 0;
+    $patientRows = "";
+    $numofPatientRows = 0;
+    $allusers = scandir('db/users/');
+    $num = count($allusers);
+    for ($i = 2; $i < $num; $i++) {
+        $user_Derived_from_Db = json_decode(file_get_contents('db/users/' . $allusers[$i]));
+        if ($user_Derived_from_Db->designation == "Medical Team(MT)") {
+            $staffRowNum++;
+            $staffRows .= "
+             <tr>
+                <th scope='row'>$staffRowNum</th>
+                <td>$user_Derived_from_Db->firstname </td>
+                 <td>$user_Derived_from_Db->gender</td>
+                <td>$user_Derived_from_Db->designation</td>
+                <td>$user_Derived_from_Db->department</td>
+                <td>$user_Derived_from_Db->dateRegistered</td>
+            </tr>
+            ";
+        } else if ($user_Derived_from_Db->designation == "Patient") {
+            $numofPatientRows++;
+            $patientRows .= "
+             <tr>
+                <th scope='row'>$numofPatientRows</th>
+                <td>$user_Derived_from_Db->firstname</td>
+                  <td>$user_Derived_from_Db->gender</td>
+                <td>$user_Derived_from_Db->designation</td>
+                <td>$user_Derived_from_Db->department</td>
+                <td>$user_Derived_from_Db->dateRegistered</td>
+            </tr>
+            ";
+        }
+    }
+    return ['staff' => $staffRows, 'patient' => $patientRows];
+}
