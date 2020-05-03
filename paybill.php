@@ -44,7 +44,12 @@ require_once('functions/alert.php');
         // console.log(clientEmail + clientFirst_name + clientLast_name);
         // console.log(API_publicKey);
 
+
         function payWithRave() {
+            var flw_ref = "",
+                chargeResponse = "",
+                trxref = "FDKHGK" + Math.random(),
+                API_publicKey = "FLWPUBK_TEST-c4154efda0121d7f1e3a361e968fbcb0-X";
             var x = getpaidSetup({
                 PBFPubKey: API_publicKey,
                 customer_email: document.querySelector('#userEmail').value,
@@ -56,23 +61,35 @@ require_once('functions/alert.php');
                 txref: "rave-123456",
                 hosted_payment: 1,
                 redirect_url: "./patientDashBoard.php",
-                onclose: function() {},
+                onclose: function(response) {},
                 callback: function(response) {
-                    var txref = response.data.txRef; // collect txRef returned and pass to a server page to complete status check.
-                    console.log("This is the response returned after a charge", response);
-                    if (
-                        response.data.chargeResponseCode == "00" ||
-                        response.data.chargeResponseCode == "0"
-                    ) {
-                        // redirect to a success page
-                        window.location.assign('./billpaymentsuccessful.php');
+                    txref = response.data.txRef, chargeResponse = response.data.chargeResponseCode;
+                    if (chargeResponse == "00" || chargeResponse == "0") {
+                        window.location = "http://localhost/myh/billpaymentsuccessful.php?txref=" + txref; //Add your success page here
                     } else {
-                        // redirect to a failure page.
-                        window.location.assign('./billpaymentfailed.php');
+                        window.location = "http://localhost/myh/billpaymentfailed.php?txref=" + txref; //Add your failure page here
                     }
 
-                    x.close(); // use this to close the modal immediately after payment.
                 }
+
+
+
+                // callback: function(response) {
+                //     var txref = response.data.txRef; // collect txRef returned and pass to a server page to complete status check.
+                //     console.log("This is the response returned after a charge", response);
+                //     if (
+                //         response.data.chargeResponseCode == "00" ||
+                //         response.data.chargeResponseCode == "0"
+                //     ) {
+                //         // redirect to a success page
+                //         window.location.assign('./billpaymentsuccessful.php');
+                //     } else {
+                //         // redirect to a failure page.
+                //         window.location.assign('./billpaymentfailed.php');
+                //     }
+
+                //     x.close(); // use this to close the modal immediately after payment.
+                // }
             });
         }
     </script>";
