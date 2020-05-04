@@ -9,6 +9,7 @@ $userData = json_decode($_SESSION['userObject']);
 $errorCount = 0;
 
 $_POST['name'] !== '' ? $name = check_input($_POST['name'])  : $errorCount++;
+$_POST['email'] !== '' ? $email = check_input($_POST['email'])  : $errorCount++;
 $_POST['nature'] !== '' ? $nature = check_input($_POST['nature'])  : $errorCount++;
 $_POST['time'] !== '' ? $time = check_input($_POST['time'])  : $errorCount++;
 $_POST['date'] !== '' ? $date = $_POST['date']  : $errorCount++;
@@ -18,6 +19,7 @@ $_POST['department'] !== '' ? $department = check_input($_POST['department'])  :
 
 
 $_SESSION['name'] = $name;
+$_SESSION['email'] = $email;
 $_SESSION['nature'] = $nature;
 $_SESSION['time'] = $time;
 $_SESSION['date'] = $date;
@@ -57,6 +59,7 @@ if (strlen($complaint) < 5) {
 
     $appointMent_Object = [
         'id' => $Id,
+        "email" => $email,
         "patientName" => $name,
         'nature' => $nature,
         'time' => $formatted_Time,
@@ -66,7 +69,7 @@ if (strlen($complaint) < 5) {
     ];
 
 
-    file_put_contents("db/appointments/" . $Id . ".json", json_encode($appointMent_Object));
+    file_put_contents("db/appointments/" . $email . ".json", json_encode($appointMent_Object));
 
     unset($_SESSION['name']);
     unset($_SESSION['nature']);

@@ -14,7 +14,7 @@ require_once('functions/alert.php');
         <row>
             <div class="col-md-6 col-md-offset-4">
                 <form>
-                    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+                    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
                     <div class="row">
                         <div class="col-md-8">
                             <label for="">First Name</label>
@@ -22,7 +22,11 @@ require_once('functions/alert.php');
                             <label for="">Last Name</label>
                             <input type="text" name="lastname" id="lastName" class="form-control border-input" placeholder="Enter your Last name" style="margin-bottom: 30px;">
                             <label for="">Email address</label>
-                            <input type="text" name="email" id="userEmail" class="form-control border-input" placeholder="Enter email address" style="margin-bottom: 30px;">
+                            <input type="text" name="email" id="userEmail" value="<?php
+                                                                                    if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
+                                                                                        echo $_SESSION['email'];
+                                                                                    }
+                                                                                    ?>" class="form-control border-input" placeholder="Enter email address" style="margin-bottom: 30px;">
                         </div>
                     </div>
 
@@ -35,7 +39,9 @@ require_once('functions/alert.php');
     </row>
 
 
-    <script type="text/javascript" src="http://flw-pms-dev.eu-west-1.elasticbeanstalk.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+    <!-- <script type="text/javascript" src="http://flw-pms-dev.eu-west-1.elasticbeanstalk.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
     <script>
         const API_publicKey = "FLWPUBK_TEST-c4154efda0121d7f1e3a361e968fbcb0-X";
         // let clientEmail = document.querySelector('#userEmail').value;
@@ -58,12 +64,16 @@ require_once('functions/alert.php');
                 amount: 1000,
                 customer_phone: "09045773356",
                 currency: "NGN",
-                txref: "rave-123456",
+                txref: "rave-12345678966hj",
                 hosted_payment: 1,
-                redirect_url: "./patientDashBoard.php",
-                onclose: function(response) {},
+                redirect_url: "http://localhost/myh/paybillverifiation.php",
+                onclose: function(response) {
+                    console.log(response);
+                },
                 callback: function(response) {
-                    txref = response.data.txRef, chargeResponse = response.data.chargeResponseCode;
+                    console.log(response);
+                    txref = response.data.txref, chargeResponse = response.data.chargeResponseCode;
+                    console.log(txref);
                     if (chargeResponse == "00" || chargeResponse == "0") {
                         window.location = "http://localhost/myh/billpaymentsuccessful.php?txref=" + txref; //Add your success page here
                     } else {
@@ -71,25 +81,6 @@ require_once('functions/alert.php');
                     }
 
                 }
-
-
-
-                // callback: function(response) {
-                //     var txref = response.data.txRef; // collect txRef returned and pass to a server page to complete status check.
-                //     console.log("This is the response returned after a charge", response);
-                //     if (
-                //         response.data.chargeResponseCode == "00" ||
-                //         response.data.chargeResponseCode == "0"
-                //     ) {
-                //         // redirect to a success page
-                //         window.location.assign('./billpaymentsuccessful.php');
-                //     } else {
-                //         // redirect to a failure page.
-                //         window.location.assign('./billpaymentfailed.php');
-                //     }
-
-                //     x.close(); // use this to close the modal immediately after payment.
-                // }
             });
         }
     </script>";

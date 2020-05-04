@@ -31,6 +31,15 @@ require_once('functions/redirect.php');
                                                                                         ?></textarea>
 
         </p>
+        <p>
+            <label>Email</label><br>
+            <textarea placeholder="Please enter email" name="email" cols="22" rows="2"><?php
+                                                                                        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
+                                                                                            echo $_SESSION['email'];
+                                                                                        }
+                                                                                        ?></textarea>
+
+        </p>
 
         <p>
             <label>Nature of Your Appointment</label><br>
