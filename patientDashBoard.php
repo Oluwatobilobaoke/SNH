@@ -21,7 +21,8 @@ $userData = json_decode($_SESSION['userObject']);
     <br>
     <br>
     <a class="btn btn-bg btn-info" href="paybill.php">Pay Bill</a> | | |
-    <a class="btn btn-bg btn-info" href="bookappointment.php">Book Appointment</a>
+    <a class="btn btn-bg btn-info" href="bookappointment.php">Book Appointment</a> | | |
+    <a class="btn btn-bg btn-info" href="transactionhistory.php">Transaction History</a>
 
 
     <div class="details">
