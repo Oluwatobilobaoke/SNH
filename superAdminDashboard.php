@@ -22,6 +22,7 @@ $userData = json_decode($_SESSION['userObject']);
     <ul class="innerlinks">
         <li><a class="btn-dark btn-lg" href="alltables.php?table=staff">View the Medical Team</a></li>
         <li><a class="btn-info btn-lg" href="alltables.php?table=patient">View All the Patients</a></li>
+        <li><a class="btn-dark btn-lg" href="billspaymentsforadmin.php">View the Payments</a></li>
         <li><a class="btn-dark btn-lg" href="#form">Create User</a></li>
     </ul>
     <br>
