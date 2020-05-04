@@ -29,6 +29,7 @@ $userData = json_decode($_SESSION['userObject']);
                 <thead class="thead-dark ">
                     <tr>
                         <th scope="col">No</th>
+                        <th scope="col">Transaction ID</th>
                         <th scope="col">Patient Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Status</th>

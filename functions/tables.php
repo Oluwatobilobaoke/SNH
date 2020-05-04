@@ -44,6 +44,7 @@ function getPersonalPaidBills($email)
             $rows .= "
              <tr>
                 <th scope='row'>$rowNum</th>
+                <td>$payments->transactionid</td> 
                 <td>$payments->patientname</td>
                 <td>$payments->email</td>
                 <td>$payments->status</td>
@@ -74,6 +75,7 @@ function getPaidBills()
             $rows .= "
              <tr>
                 <th scope='row'>$rowNum</th>
+                <td>$payments->transactionid</td>
                 <td>$payments->patientname</td>
                 <td>$payments->email</td>
                 <td>$payments->status</td>

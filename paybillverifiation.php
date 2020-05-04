@@ -38,8 +38,11 @@ if (isset($_GET['txref'])) {
     $chargeCurrency = $resp['data']['currency'];
     $name =    $resp['data']['custname'];
     $email = $resp['data']['custemail'];
+    $txid = $resp['data']['txid'];
+
 
     $paymentObject = [
+        'transactionid' => $txid,
         'status' => $paymentStatus,
         "email" => $email,
         'patientname' => $name,
@@ -54,11 +57,11 @@ if (isset($_GET['txref'])) {
         // print_r($chargeResponsecode);
         // print_r($paymentObject);
         // die();
-        file_put_contents("db/payments/" . $email . ".json", json_encode($paymentObject));
+        file_put_contents("db/payments/" . $email . $txid . ".json", json_encode($paymentObject));
         redirect_to("billpaymentsuccessful.php");
     } else {
         //Dont Give Value and return to Failure page
-        file_put_contents("db/payments/" . $email . ".json", json_encode($paymentObject));
+        file_put_contents("db/payments/" . $email . $txid . ".json", json_encode($paymentObject));
         redirect_to("billpaymentfailed.php");
     }
 }
