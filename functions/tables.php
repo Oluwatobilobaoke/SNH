@@ -30,6 +30,35 @@ function getAppointments($dept)
     return $rows;
 }
 
+function getPaidBills()
+{
+    $rows = '';
+    $rowNum = 0;
+    $all_Available_payments = scandir('db/payments/');
+    $num = count($all_Available_payments);
+    for ($i = 2; $i < $num; $i++) {
+
+        $payments = json_decode(file_get_contents('db/payments/' . $all_Available_payments[$i]));
+        if ($payments) {
+            $rowNum++;
+            $rows .= "
+             <tr>
+                <th scope='row'>$rowNum</th>
+                <td>$payments->patientname</td>
+                <td>$payments->email</td>
+                <td>$payments->status</td>
+                <td>$payments->amount</td>
+                <td>$payments->currency</td>
+            </tr>
+            ";
+        }
+    }
+    if ($rows == '') {
+        return false;
+    }
+    return $rows;
+}
+
 function getAllUsers()
 {
     $staffRows = '';

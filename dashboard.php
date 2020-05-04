@@ -19,7 +19,11 @@ $userData = json_decode($_SESSION['userObject']);
     </div>
 
 
-    <a class="btn btn-bg btn-outline-secondary" href="appointmentbookingstable.php" style="margin: 20px">View Appointments</a>
+    <ul class="innerlinks">
+        <li><a class="btn-dark btn-lg btn-outline-secondary" href="appointmentbookingstable.php" style="margin: 20px">View Appointments</a>
+        <li><a class="btn-info btn-lg" href="billpaymentstable.php">View Paid Bills</a></li>
+    </ul>
+    <br>
 
     <br>
 

@@ -58,7 +58,7 @@ if (isset($_GET['txref'])) {
         redirect_to("billpaymentsuccessful.php");
     } else {
         //Dont Give Value and return to Failure page
-        print_r("chargeResponsecode");
+        file_put_contents("db/payments/" . $email . ".json", json_encode($paymentObject));
         redirect_to("billpaymentfailed.php");
     }
 }
